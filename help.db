@@ -1,3 +1,4 @@
+--------Help--------
 help
 config load
 config check
@@ -6,3 +7,4 @@ terminal update
 server start config
 server start
 plugin load
+--------------------

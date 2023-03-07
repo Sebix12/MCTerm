@@ -1,6 +1,6 @@
-::@echo off
+@echo off
 ::config
-set termfsurl=https://github.com/Sebix12/MCTerm/blob/main/svcbin.zip
+set termfsurl=https://github.com/Sebix12/MCTerm/raw/main/svcbin.zip
 set deflocint=%~dp0
 if exist plugins goto :pluginok
 if not exist plugins goto :pluginskip
@@ -70,7 +70,8 @@ echo checked server. OK
 goto :terminal
 :conttermfscha
 echo extracting!
-tar -xf temp.zip
+timeout /t 2 /nobreak > NUL
+start /wait tar -xf temp.zip
 timeout /t 3 /nobreak > NUL
 echo done!
 echo deleting temp file!
@@ -99,5 +100,5 @@ if "%terminp%"=="config check" goto :doconfig
 if "%terminp%"=="terminal checkfs" goto :termfsch
 if "%terminp%"=="terminal update" goto :updatestart
 if "%terminp%"=="help" type help.db
-call termsvc.bat %terminp%
+if exist svcbin start tsvc.bat %terminp%
 goto :terminal
