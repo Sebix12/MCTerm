@@ -1,4 +1,5 @@
 @echo off
+cd ..
 title MCTerm FS installer
 ::-----------------------
 set ghconsole=https://raw.githubusercontent.com/Sebix12/MCTerm/main/console.bat
