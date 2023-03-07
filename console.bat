@@ -31,9 +31,9 @@ echo set ram=%ram% >> config.bat
 echo set serverfilename=%serverfilename% >> config.bat
 echo set version=%version% >> config.bat
 echo set cusservername=%cusservername% >> config.bat
-echo connfig created!
+echo config created!
 timeout /t 2 > NUL
-echo conntiuning!
+echo contiuning!
 goto :terminal
 goto :error
 exit
