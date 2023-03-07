@@ -1,0 +1,8 @@
+help
+config load
+config check
+terminal checkfs
+terminal update
+server start config
+server start
+plugin load
