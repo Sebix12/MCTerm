@@ -1,6 +1,17 @@
 ::@echo off
 ::config
-set termfsurl=https://cdn.discordapp.com/attachments/1080970714544341084/1080970809721487420/temp.zip
+set termfsurl=https://github.com/Sebix12/MCTerm/blob/main/svcbin.zip
+set deflocint=%~dp0
+if exist plugins goto :pluginok
+if not exist plugins goto :pluginskip
+
+:pluginok
+cd plugins
+echo cd plugins > %deflocint%plgload.bat
+dir /b >> %deflocint%plgload.bat
+echo dir.. >> %deflocint%plgload.bat
+cd %deflocint%
+:pluginskip
 goto :terminal
 goto :error
 exit
@@ -16,7 +27,7 @@ set /p serverfilename=svcfilename$
 set /p versionn=version$
 set /p cusservername=servername$
 set /p ram=ram(MB)$
-echo set ram=%ram%
+echo set ram=%ram% >> config.bat
 echo set serverfilename=%serverfilename% >> config.bat
 echo set version=%version% >> config.bat
 echo set cusservername=%cusservername% >> config.bat
@@ -48,8 +59,14 @@ goto :error
 exit
 
 :termfsch
-if exist svcbin echo svcbin ok.
+if exist svcbin echo svcbin. OK.
 if not exist svcbin goto :downloadsvcbin
+if not exist vars mkdir vars | echo vars didnt exist creating one!
+echo checked vars. OK
+if not exist plugins mkdir plugins | echo plugins didnt exist creating one!
+echo checked plugins. OK
+if not exist server mkdir server | echo server didnt exist creating one!
+echo checked server. OK
 goto :terminal
 :conttermfscha
 echo extracting!
@@ -81,6 +98,6 @@ if "%terminp%"=="config load" goto :importconfig
 if "%terminp%"=="config check" goto :doconfig
 if "%terminp%"=="terminal checkfs" goto :termfsch
 if "%terminp%"=="terminal update" goto :updatestart
-if "%terminp%"=="help" goto :help
+if "%terminp%"=="help" type help.db
 call termsvc.bat %terminp%
 goto :terminal
