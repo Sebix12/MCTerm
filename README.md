@@ -1,2 +1,2 @@
 # MCTerm
-Overcomplicated
+Overcomplicated minecraft terminal system
