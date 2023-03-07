@@ -39,6 +39,7 @@ goto :error
 exit
 
 :importconfig
+CD %deflocint%
 call config.bat
 echo config loaded!
 goto :terminal
@@ -46,6 +47,7 @@ goto :error
 exit
 
 :doconfig
+CD %deflocint%
 if exist config.bat goto :importconfig
 if not exist config.bat goto :createconfig
 goto :terminal
@@ -61,14 +63,15 @@ exit
 :termfsch
 if exist svcbin echo svcbin. OK.
 if not exist svcbin goto :downloadsvcbin
+
+goto :terminal
+:conttermfscha
 if not exist vars mkdir vars | echo vars didnt exist creating one!
 echo checked vars. OK
 if not exist plugins mkdir plugins | echo plugins didnt exist creating one!
 echo checked plugins. OK
 if not exist server mkdir server | echo server didnt exist creating one!
 echo checked server. OK
-goto :terminal
-:conttermfscha
 echo extracting!
 timeout /t 2 /nobreak > NUL
 start /wait tar -xf temp.zip
@@ -95,10 +98,11 @@ start update.bat
 exit
 
 :commands
+cd %deflocint%
 if "%terminp%"=="config load" goto :importconfig
 if "%terminp%"=="config check" goto :doconfig
 if "%terminp%"=="terminal checkfs" goto :termfsch
 if "%terminp%"=="terminal update" goto :updatestart
 if "%terminp%"=="help" type help.db
-if exist svcbin start tsvc.bat %terminp%
+if exist svcbin call tsvc.bat %terminp%
 goto :terminal
