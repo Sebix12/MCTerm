@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 ::config
 set termfsurl=https://github.com/Sebix12/MCTerm/raw/main/svcbin.zip
 set deflocint=%~dp0
@@ -7,9 +7,10 @@ if not exist plugins goto :pluginskip
 
 :pluginok
 cd plugins
-echo cd plugins > %deflocint%plgload.bat
-dir /b >> %deflocint%plgload.bat
-echo dir.. >> %deflocint%plgload.bat
+echo dir.. >> %deflocint%svcbin\plgload.bat
+echo cd plugins > %deflocint%svcbin\plgload.bat
+dir /b >> %deflocint%svcbin\plgload.bat
+echo dir.. >> %deflocint%svcbin\plgload.bat
 cd %deflocint%
 :pluginskip
 goto :terminal
@@ -22,6 +23,7 @@ pause > NUL
 exit
 
 :createconfig
+cd %deflocint%
 echo No config detected creating!
 set /p serverfilename=svcfilename$
 set /p versionn=version$
@@ -39,6 +41,7 @@ goto :error
 exit
 
 :importconfig
+cd %deflocint%
 call config.bat
 echo config loaded!
 goto :terminal
@@ -53,12 +56,14 @@ goto :error
 exit
 
 :terminal
+cd %deflocint%
 set /p terminp=">"
 goto :commands
 goto :error
 exit
 
 :termfsch
+cd %defloc%
 if exist svcbin echo svcbin. OK.
 if not exist svcbin goto :downloadsvcbin
 if not exist vars mkdir vars | echo vars didnt exist creating one!
@@ -100,5 +105,5 @@ if "%terminp%"=="config check" goto :doconfig
 if "%terminp%"=="terminal checkfs" goto :termfsch
 if "%terminp%"=="terminal update" goto :updatestart
 if "%terminp%"=="help" type help.db
-if exist svcbin start tsvc.bat %terminp%
+if exist svcbin call tsvc.bat %terminp%
 goto :terminal
